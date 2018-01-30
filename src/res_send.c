@@ -136,15 +136,15 @@ typedef unsigned char __u_char;
 typedef __u_char u_char;
 
 
-#ifdef BUILD_YOCTO
-struct mmsghdr {
+
+struct __mmsghdr {
         struct msghdr   msg_hdr;
         unsigned int        msg_len;
 };
-#endif
+
 /* External */
 /* For recvmmsg/sendmmsg */
-extern int __sendmmsg (int __fd, struct mmsghdr *__vmessages,
+extern int __sendmmsg (int __fd, struct __mmsghdr *__vmessages,
                        unsigned int __vlen, int __flags);
 
 extern int poll (struct pollfd *fds, nfds_t nfds, int timeout);
@@ -1195,7 +1195,7 @@ send_dg(res_state statp,
 		    && !single_request)
 		  {
 		    struct iovec iov[2];
-		    struct mmsghdr reqs[2];
+		    struct __mmsghdr reqs[2];
 		    reqs[0].msg_hdr.msg_name = NULL;
 		    reqs[0].msg_hdr.msg_namelen = 0;
 		    reqs[0].msg_hdr.msg_iov = &iov[0];
